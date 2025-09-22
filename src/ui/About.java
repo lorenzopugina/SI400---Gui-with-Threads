@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class About extends JDialog {
 
-    public AboutDialog(JFrame parent) {
+    public About(JFrame parent) {
         super(parent, "Sobre", true);
         setSize(300, 200);
         setLocationRelativeTo(parent);

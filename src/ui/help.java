@@ -1,11 +1,12 @@
-package br.univ.projeto.ui;
-
+package ui;
+//com "package br.univ.projeto.ui;" n tava funcionando tao bem e tava dando uns alert
+//package br.univ.projeto.ui;
 import javax.swing.*;
 import java.awt.*;
 
 public class Help extends JDialog {
 
-    public HelpDialog(JFrame parent) {
+    public Help(JFrame parent) {
         super(parent, "Ajuda", true);
         setSize(400, 300);
         setLocationRelativeTo(parent);
