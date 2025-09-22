@@ -1,16 +1,23 @@
-MainApp → inicializa a aplicação e mostra a janela principal.
-
-ConfigManager → gerencia configurações (cor, velocidade, padrões da animação).
-
-FileManager → utilitário para leitura de arquivos de texto.
-
-About → diálogo simples com informações da aplicação.
-
-BackgroundPanel → painel personalizado que cuida da animação no fundo (roda numa thread separada).
-
-Help → diálogo personalizado com imagens, texto rolável e botões.
+Main → inicializa a aplicação e mostra a janela principal.
+Responsabilidade: inicializar o Swing e abrir a janela principal (MainFrame).
 
 MainFrame → classe que herda de JFrame e monta toda a interface gráfica (menus, barra de status, área de texto, painel de fundo animado).
+Responsabilidade: montar a interface → menus, status bar, área de texto, painel de fundo.
+
+BackgroundPanel → painel personalizado que cuida da animação no fundo (roda numa thread separada).
+Responsabilidade: desenhar elementos gráficos (paintComponent) e rodar uma thread que atualiza o estado e chama repaint()
+
+ConfigManager → gerencia configurações (cor, velocidade, padrões da animação).
+Responsabilidade: central de configurações globais. armazenar cor do fundo, velocidade da animação, padrões etc.
+
+FileManager → utilitário para leitura de arquivos de texto.
+Responsabilidade: retornar o conteúdo como String para exibir no JTextArea.
+
+About → diálogo simples com informações da aplicação.
+Responsabilidade: mostrar informações sobre a aplicação.
+
+Help → diálogo personalizado com imagens, texto rolável e botões.
+Responsabilidade: mostrar texto rolável, imagens e botões.
 
 
 Adriano 
