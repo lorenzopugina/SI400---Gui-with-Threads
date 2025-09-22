@@ -130,10 +130,10 @@ public class MainFrame extends JFrame {
                 ConfigManager.setAnimationSpeed(novaVelocidade);
                 statusBar.setText("Velocidade alterada para " + novaVelocidade + " ms"); // e salva essa velocidade
                 /*
-                 * //parte para atualizar a animação em tempo real
-                 * if (backgroundPanel != null) {
-                 * backgroundPanel.atualizarVelocidade();
-                 * }
+                 //parte para atualizar a animação em tempo real
+                 if (backgroundPanel != null) {
+                 backgroundPanel.atualizarVelocidade();
+                 }
                  */
             }
         });
