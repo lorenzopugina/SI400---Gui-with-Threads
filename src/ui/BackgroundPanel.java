@@ -1,4 +1,4 @@
-package br.univ.projeto.ui;
+package ui;
 
 import java.awt.*;
 import javax.swing.*;

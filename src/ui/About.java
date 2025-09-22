@@ -1,7 +1,7 @@
-package br.univ.projeto.ui;
+package ui;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class About extends JDialog {
 

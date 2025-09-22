@@ -1,7 +1,7 @@
-package br.univ.projeto.app;
+package app;
 
 import javax.swing.SwingUtilities;
-import br.univ.projeto.ui.MainFrame;
+import ui.MainFrame;
 
 public class Main {
     public static void main(String[] args) {

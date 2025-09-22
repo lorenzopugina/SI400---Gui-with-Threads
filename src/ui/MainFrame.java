@@ -1,13 +1,10 @@
-package br.univ.projeto.ui;
+package ui;
 
 //onde a classe esta 
-import javax.swing.*;
-
-import br.univ.projeto.core.ConfigManager;
-import br.univ.projeto.core.FileManager;
-import ui.Help;
-//importando classes q serao usadas aqui, como help, about, arquivos, etc
+import core.ConfigManager;
+import core.FileManager;
 import java.awt.*;
+import javax.swing.*;
 
 public class MainFrame extends JFrame {
     // herda jframe

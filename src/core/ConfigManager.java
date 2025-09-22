@@ -1,4 +1,4 @@
-package br.univ.projeto.core;
+package core;
 
 import java.awt.Color;
 

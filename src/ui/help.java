@@ -1,6 +1,5 @@
 package ui;
-//com "package br.univ.projeto.ui;" n tava funcionando tao bem e tava dando uns alert
-//package br.univ.projeto.ui;
+
 import javax.swing.*;
 import java.awt.*;
 
