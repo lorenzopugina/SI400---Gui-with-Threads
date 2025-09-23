@@ -5,6 +5,12 @@ import core.ConfigManager;
 import core.FileManager;
 import java.awt.*;
 import javax.swing.*;
+import ui.dialogs.AboutDialog;
+import ui.dialogs.ColorDialog;
+import ui.dialogs.HelpDialog;
+import ui.dialogs.PatternDialog;
+import ui.dialogs.ShapeDialog;
+import ui.dialogs.SpeedDialog;
 
 public class MainFrame extends JFrame {
     // herda jframe
@@ -57,20 +63,14 @@ public class MainFrame extends JFrame {
         JMenuItem fechar = new JMenuItem("Fechar Arquivo");
         JMenuItem sair = new JMenuItem("Sair");
 
-        // ouvintes/acoes
         abrir.addActionListener(e -> {
-            JFileChooser fileChooser = new JFileChooser();
-            int result = fileChooser.showOpenDialog(this);
-
-            if (result == JFileChooser.APPROVE_OPTION)
-            // ve se o usuario selecionou o arquivo
-            {
-                String path = fileChooser.getSelectedFile().getAbsolutePath();
-                String content = FileManager.readFile(path);// le o conteudo do arquivo
-                textArea.setText(content);// e exibe o conteudo do arquivo na tela
-                statusBar.setText("Arquivo aberto: " + path);// muda status para arquivo aberto
+            String content = FileManager.openFile(this); // delega ao FileManager
+            if (content != null) {
+                textArea.setText(content);
+                statusBar.setText("Arquivo carregado com sucesso.");
             }
         });
+
 
         fechar.addActionListener(e -> System.out.println("Clicou em Fechar Arquivo"));
         // quando o usuario clica aqui, aparece essa frase no terminal
@@ -86,58 +86,18 @@ public class MainFrame extends JFrame {
         JMenuItem padroes = new JMenuItem("Padrões");
         JMenuItem cores = new JMenuItem("Cores");
         JMenuItem velocidade = new JMenuItem("Velocidade");
+        JMenuItem formas = new JMenuItem("Forma");
 
-        // ouvintes/acoes
-        padroes.addActionListener(e -> System.out.println("Clicou em Padrões"));
-        // *precisa estar feito no configmanager para fazer a chamada aqui
-        cores.addActionListener(e -> System.out.println("Clicou em Cores"));
-        // *precisa estar feito no configmanager.java, para conseguir fazer a chamada
+        //erros pq ainda n foram implementados
+        velocidade.addActionListener(e -> new SpeedDialog(this).setVisible(true));
+        cores.addActionListener(e -> new ColorDialog(this).setVisible(true));
+        formas.addActionListener(e -> new ShapeDialog(this).setVisible(true));
+        padroes.addActionListener(e -> new PatternDialog(this).setVisible(true));
 
-        // * = alem disso precsa d decisões/logica de como a pessoa responsavel vai
-        // fazer
-
-        velocidade.addActionListener(e -> {
-            // cria um painel para o controle deslizante de velocidade
-            JPanel panel = new JPanel(new BorderLayout());
-
-            // cria o slider (controle deslizante de velocidade)
-            JSlider slider = new JSlider(JSlider.HORIZONTAL, 10, 100, ConfigManager.getAnimationSpeed());
-            slider.setMajorTickSpacing(10);// marcadores grandes a cada 100
-            slider.setMinorTickSpacing(5); // marcadores pequenos a cada 50
-            slider.setPaintTicks(true); // mostra os tracinhos
-            slider.setPaintLabels(true); // mostra os números
-            slider.setSnapToTicks(true); // gruda os numeros nos marcadores
-
-            // Rótulo explicativo
-            JLabel label = new JLabel("Velocidade da animação:");
-            panel.add(label, BorderLayout.NORTH);// fica acima do controle d velocidade
-            panel.add(slider, BorderLayout.CENTER);// e tambem centralizado
-
-            // Mostra o diálogo com o slider
-            int result = JOptionPane.showConfirmDialog(
-                    this,
-                    panel,
-                    "Ajustar Velocidade",
-                    JOptionPane.OK_CANCEL_OPTION,
-                    JOptionPane.PLAIN_MESSAGE);
-
-            // caso o usuário tenha clicado em OK
-            if (result == JOptionPane.OK_OPTION) {
-                int novaVelocidade = slider.getValue();// o programa captura a velocidade que o usuario colocou
-                ConfigManager.setAnimationSpeed(novaVelocidade);
-                statusBar.setText("Velocidade alterada para " + novaVelocidade + " ms"); // e salva essa velocidade
-                /*
-                 //parte para atualizar a animação em tempo real
-                 if (backgroundPanel != null) {
-                 backgroundPanel.atualizarVelocidade();
-                 }
-                 */
-            }
-        });
-
-        menuConfig.add(padroes);
-        menuConfig.add(cores);
         menuConfig.add(velocidade);
+        menuConfig.add(cores);
+        menuConfig.add(formas);
+        menuConfig.add(padroes);
 
         // Manu Ajuda ou submenu de ajuda
         JMenu menuAjuda = new JMenu("Ajuda"); // titulo do menu ajuda
@@ -145,12 +105,12 @@ public class MainFrame extends JFrame {
         JMenuItem sobre = new JMenuItem("Sobre");
 
         ajuda.addActionListener(e -> {
-            Help helpDialog = new Help(this);
+            HelpDialog helpDialog = new HelpDialog(this);
             helpDialog.setVisible(true); // mostra o conteudo de ajuda
         });
 
         sobre.addActionListener(e -> {
-            About aboutDialog = new About(this);
+            AboutDialog aboutDialog = new AboutDialog(this);
             aboutDialog.setVisible(true);// mostra o conteudo de sobre
         });
 

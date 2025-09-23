@@ -1,11 +1,11 @@
-package ui;
+package ui.dialogs;
 
 import java.awt.*;
 import javax.swing.*;
 
-public class About extends JDialog {
+public class AboutDialog extends JDialog {
 
-    public About(JFrame parent) {
+    public AboutDialog(JFrame parent) {
         super(parent, "Sobre", true);
         setSize(300, 200);
         setLocationRelativeTo(parent);

@@ -1,11 +1,11 @@
-package ui;
+package ui.dialogs;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
-public class Help extends JDialog {
+public class HelpDialog extends JDialog {
 
-    public Help(JFrame parent) {
+    public HelpDialog(JFrame parent) {
         super(parent, "Ajuda", true);
         setSize(400, 300);
         setLocationRelativeTo(parent);
