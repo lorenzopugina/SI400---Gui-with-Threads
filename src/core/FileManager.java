@@ -1,6 +1,6 @@
 package core;
 
-import java.awt.*;
+import java.awt.Component;
 import java.io.*;
 import java.nio.file.*;
 import javax.swing.*;
@@ -31,9 +31,16 @@ public class FileManager {
 
     /**
      * Apenas lê o conteúdo de um arquivo a partir do caminho informado.
-     * Esse método é útil se, no futuro, você quiser chamar o leitor sem JFileChooser.
      */
     public static String readFile(String path) throws IOException {
         return Files.readString(Path.of(path));
+    }
+
+    /**
+     * Fecha o "arquivo": limpa o JTextArea e atualiza a barra de status.
+     */
+    public static void closeFile(JTextArea textArea, JLabel statusBar) {
+        textArea.setText(""); // limpa o conteúdo
+        statusBar.setText("Arquivo fechado.");
     }
 }
