@@ -1,10 +1,21 @@
 package ui.dialogs;
 
-//falta import
+import core.ConfigManager;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 public class ColorDialog extends JDialog {
-    public ColorDialog(JFrame parent) {
+    public ColorDialog(JFrame parent, JLabel statusBar) {
         super(parent, "Configurar Cor", true);
-        setSize(300, 150);
+        setSize(350, 200);
         setLocationRelativeTo(parent);
 
         String[] options = {"Vermelho", "Azul", "Aleatório"};
@@ -18,13 +29,20 @@ public class ColorDialog extends JDialog {
                 case 1 -> ConfigManager.setBackgroundColor(Color.BLUE);
                 case 2 -> ConfigManager.setBackgroundColor(null); // aleatório
             }
+            statusBar.setText("Cor de fundo alterada.");
             dispose();
         });
 
-        setLayout(new BorderLayout());
-        add(new JLabel("Escolha a cor:"), BorderLayout.NORTH);
-        add(combo, BorderLayout.CENTER);
-        add(ok, BorderLayout.SOUTH);
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(new JLabel("Escolha a cor:"), BorderLayout.NORTH);
+
+        JPanel comboPanel = new JPanel();
+        comboPanel.add(combo);
+
+        panel.add(comboPanel, BorderLayout.CENTER);
+        panel.add(ok, BorderLayout.SOUTH);
+
+        add(panel);
     }
 }
 

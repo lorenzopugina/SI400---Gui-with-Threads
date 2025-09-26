@@ -23,17 +23,17 @@ public class MainFrame extends JFrame {
     private void initUI() {
         setTitle("Basic GUI with Threads"); // titulo da janela
         setSize(800, 600); // tamanho da janela
-        setDefaultCloseOperation(EXIT_ON_CLOSE); // fecha programa quando clica no X
+        setDefaultCloseOperation(EXIT_ON_CLOSE); 
         setLocationRelativeTo(null);
 
-        // icone da aplicacao/programa
+        // ícone da aplicação
         try {
             setIconImage(new ImageIcon("src/util/icon_star.png").getImage());
         } catch (Exception e) {
             System.out.println("Ícone não encontrado, usando padrão.");
         }
 
-        // area de texto
+        // área de texto
         textArea = new JTextArea();
 
         // barra de status
@@ -41,9 +41,9 @@ public class MainFrame extends JFrame {
 
         // painel de fundo animado
         backgroundPanel = new BackgroundPanel();
-        setContentPane(backgroundPanel); 
-        backgroundPanel.setLayout(new BorderLayout()); 
-        backgroundPanel.add(new JScrollPane(textArea), BorderLayout.CENTER); 
+        setContentPane(backgroundPanel);
+        backgroundPanel.setLayout(new BorderLayout());
+        backgroundPanel.add(new JScrollPane(textArea), BorderLayout.CENTER);
         backgroundPanel.add(statusBar, BorderLayout.SOUTH);
 
         // menus
@@ -59,19 +59,15 @@ public class MainFrame extends JFrame {
         JMenuItem fechar = new JMenuItem("Fechar Arquivo");
         JMenuItem sair = new JMenuItem("Sair");
 
-        // Abrir Arquivo
         abrir.addActionListener(e -> {
-            String content = FileManager.openFile(this); // delega ao FileManager
+            String content = FileManager.openFile(this); 
             if (content != null) {
                 textArea.setText(content);
                 statusBar.setText("Arquivo carregado com sucesso.");
             }
         });
 
-        // Fechar Arquivo
         fechar.addActionListener(e -> FileManager.closeFile(textArea, statusBar));
-
-        // Sair
         sair.addActionListener(e -> System.exit(0));
 
         menuArquivo.add(abrir);
@@ -91,10 +87,10 @@ public class MainFrame extends JFrame {
         formas.addActionListener(e -> new ShapeDialog(this).setVisible(true));
         padroes.addActionListener(e -> new PatternDialog(this).setVisible(true));
 
-        menuConfig.add(velocidade);
+        menuConfig.add(padroes);
         menuConfig.add(cores);
         menuConfig.add(formas);
-        menuConfig.add(padroes);
+        menuConfig.add(velocidade);
 
         // menu Ajuda
         JMenu menuAjuda = new JMenu("Ajuda");
@@ -107,7 +103,7 @@ public class MainFrame extends JFrame {
         menuAjuda.add(ajuda);
         menuAjuda.add(sobre);
 
-        // adiciona menus na barra
+        // adiciona todos no menu bar
         menuBar.add(menuArquivo);
         menuBar.add(menuConfig);
         menuBar.add(menuAjuda);
