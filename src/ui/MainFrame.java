@@ -84,20 +84,20 @@ public class MainFrame extends JFrame {
         // menu configuracao ou submenu de configuracao
         JMenu menuConfig = new JMenu("Configuração");// titulo do menu configurações
         JMenuItem colors = new JMenuItem("Cores");
-        JMenuItem shapes = new JMenuItem("Formas");
         JMenuItem patterns = new JMenuItem("Padrões");
+        JMenuItem shapes = new JMenuItem("Formas");
         JMenuItem speed = new JMenuItem("Velocidade");
 
         //erros pq ainda n foram implementados
-        speed.addActionListener(e -> new SpeedDialog(this, statusBar).setVisible(true));
         colors.addActionListener(e -> new ColorDialog(this, statusBar).setVisible(true));
-        shapes.addActionListener(e -> new ShapeDialog(this, statusBar).setVisible(true));
         patterns.addActionListener(e -> new PatternDialog(this, statusBar).setVisible(true));
+        shapes.addActionListener(e -> new ShapeDialog(this, statusBar).setVisible(true));
+        speed.addActionListener(e -> new SpeedDialog(this, statusBar).setVisible(true));
 
-        menuConfig.add(speed);
         menuConfig.add(colors);
-        menuConfig.add(shapes);
         menuConfig.add(patterns);
+        menuConfig.add(shapes);
+        menuConfig.add(speed);
 
         // Manu Ajuda ou submenu de ajuda
         JMenu menuHelp = new JMenu("Ajuda"); // titulo do menu ajuda
