@@ -23,7 +23,7 @@ public class MainFrame extends JFrame {
     private void initUI() {
         setTitle("Basic GUI with Threads"); // titulo da janela
         setSize(800, 600); // tamanho da janela
-        setDefaultCloseOperation(EXIT_ON_CLOSE); 
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         // ícone da aplicação
@@ -60,7 +60,7 @@ public class MainFrame extends JFrame {
         JMenuItem sair = new JMenuItem("Sair");
 
         abrir.addActionListener(e -> {
-            String content = FileManager.openFile(this); 
+            String content = FileManager.openFile(this);
             if (content != null) {
                 textArea.setText(content);
                 statusBar.setText("Arquivo carregado com sucesso.");
@@ -82,11 +82,10 @@ public class MainFrame extends JFrame {
         JMenuItem velocidade = new JMenuItem("Velocidade");
         JMenuItem formas = new JMenuItem("Forma");
 
-        velocidade.addActionListener(e -> new SpeedDialog(this).setVisible(true));
-        cores.addActionListener(e -> new ColorDialog(this).setVisible(true));
-        formas.addActionListener(e -> new ShapeDialog(this).setVisible(true));
-        padroes.addActionListener(e -> new PatternDialog(this).setVisible(true));
-
+        velocidade.addActionListener(e -> new SpeedDialog(this, statusBar).setVisible(true));
+        cores.addActionListener(e -> new ColorDialog(this, statusBar).setVisible(true));
+        formas.addActionListener(e -> new ShapeDialog(this, statusBar).setVisible(true));
+        padroes.addActionListener(e -> new PatternDialog(this, statusBar).setVisible(true));
         menuConfig.add(padroes);
         menuConfig.add(cores);
         menuConfig.add(formas);
