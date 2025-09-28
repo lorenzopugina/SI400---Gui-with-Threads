@@ -6,6 +6,20 @@ public class ConfigManager {
     private static Color backgroundColor = Color.BLUE;
     private static int animationSpeed = 100; // em ms
 
+    public enum ShapeType {
+        CIRCLE, SQUARE, TRIANGLE, RANDOM
+    }
+
+    private static ShapeType currentShape = ShapeType.CIRCLE;
+
+    public static void setShapeType(ShapeType shape) {
+        currentShape = shape;
+    }
+
+    public static ShapeType getShapeType() {
+        return currentShape;
+    }
+
     public static Color getBackgroundColor() {
         return backgroundColor;
     }
@@ -25,5 +39,6 @@ public class ConfigManager {
     public static void resetDefaults() {
         backgroundColor = Color.BLUE;
         animationSpeed = 100;
+        currentShape = ShapeType.CIRCLE;
     }
 }
