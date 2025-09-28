@@ -21,7 +21,6 @@ public class AboutDialog extends JDialog {
                            "Bianca Yukari<br/>" +
                            "João Vitor<br/>" +
                            "Maria Clara</p>" +
-                           "<p>Este projeto demonstra uma aplicação GUI em Java com animações de fundo utilizando threads.</p>" +
                            "</center></html>";
 
         JLabel info = new JLabel(aboutText, SwingConstants.CENTER);
