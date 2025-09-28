@@ -35,6 +35,8 @@ public class MainFrame extends JFrame {
 
         // área de texto
         textArea = new JTextArea();
+        textArea.setOpaque(false); // torna transparente para ver animação
+        textArea.setBackground(new Color(255, 255, 255, 200)); // fundo semi-transparente
 
         // barra de status
         statusBar = new JLabel("Status: pronto");
@@ -43,7 +45,14 @@ public class MainFrame extends JFrame {
         backgroundPanel = new BackgroundPanel();
         setContentPane(backgroundPanel);
         backgroundPanel.setLayout(new BorderLayout());
-        backgroundPanel.add(new JScrollPane(textArea), BorderLayout.CENTER);
+        
+        // cria scroll pane transparente
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setOpaque(false); // torna scrollpane transparente
+        scrollPane.getViewport().setOpaque(false); // torna viewport transparente
+        scrollPane.setBorder(null); // remove borda se desejar
+        
+        backgroundPanel.add(scrollPane, BorderLayout.CENTER);
         backgroundPanel.add(statusBar, BorderLayout.SOUTH);
 
         // menus
@@ -84,8 +93,8 @@ public class MainFrame extends JFrame {
 
         velocidade.addActionListener(e -> new SpeedDialog(this, statusBar).setVisible(true));
         cores.addActionListener(e -> new ColorDialog(this, statusBar).setVisible(true));
-        formas.addActionListener(e -> new ShapeDialog(this, statusBar).setVisible(true));
-        padroes.addActionListener(e -> new PatternDialog(this, statusBar).setVisible(true));
+        formas.addActionListener(e -> new ShapeDialog(this, statusBar, backgroundPanel).setVisible(true));
+        padroes.addActionListener(e -> new PatternDialog(this, statusBar, backgroundPanel).setVisible(true));
         menuConfig.add(padroes);
         menuConfig.add(cores);
         menuConfig.add(formas);

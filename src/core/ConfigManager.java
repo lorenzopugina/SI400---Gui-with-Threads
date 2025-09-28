@@ -3,7 +3,7 @@ package core;
 import java.awt.Color;
 
 public class ConfigManager {
-    private static Color backgroundColor = Color.BLUE;
+    private static Color backgroundColor = Color.RED;
     private static int animationSpeed = 100; // em ms
 
     public enum ShapeType {
@@ -37,7 +37,7 @@ public class ConfigManager {
     }
 
     public static void resetDefaults() {
-        backgroundColor = Color.BLUE;
+        backgroundColor = Color.RED;
         animationSpeed = 100;
         currentShape = ShapeType.CIRCLE;
     }

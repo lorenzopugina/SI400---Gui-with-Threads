@@ -1,6 +1,7 @@
 package ui.dialogs;
 
 import core.ConfigManager;
+import ui.BackgroundPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -30,6 +31,7 @@ public class ColorDialog extends JDialog {
                 case 2 -> ConfigManager.setBackgroundColor(null); // aleatório
             }
             statusBar.setText("Cor de fundo alterada.");
+            // Cor é aplicada imediatamente sem resetar a animação
             dispose();
         });
 
