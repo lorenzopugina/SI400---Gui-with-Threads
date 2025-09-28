@@ -3,57 +3,48 @@ package ui.dialogs;
 import core.ConfigManager;
 import ui.BackgroundPanel;
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing. JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class ShapeDialog extends JDialog {
-    public ShapeDialog (JFrame parent, JLabel statusBar, BackgroundPanel backgroundPanel) {
+    public ShapeDialog(JFrame parent, JLabel statusBar, BackgroundPanel backgroundPanel) {
         super(parent, "Configurar Forma", true);
-        setSize(350, 200);
+        setSize(300, 150);
         setLocationRelativeTo(parent);
 
         String[] options = {"Círculo", "Quadrado", "Triângulo", "Aleatório"};
         JComboBox<String> combo = new JComboBox<>(options);
 
+        // Seleciona o item atual
+        switch (ConfigManager.getShapeType()) {
+            case CIRCLE -> combo.setSelectedIndex(0);
+            case SQUARE -> combo.setSelectedIndex(1);
+            case TRIANGLE -> combo.setSelectedIndex(2);
+            case RANDOM -> combo.setSelectedIndex(3);
+        }
+
         JButton ok = new JButton("OK");
         ok.addActionListener(e -> {
-            int index = combo.getSelectedIndex();
-            ConfigManager.ShapeType oldType = ConfigManager.getShapeType();
-            
-            switch (index) {
+            switch (combo.getSelectedIndex()) {
                 case 0 -> ConfigManager.setShapeType(ConfigManager.ShapeType.CIRCLE);
                 case 1 -> ConfigManager.setShapeType(ConfigManager.ShapeType.SQUARE);
                 case 2 -> ConfigManager.setShapeType(ConfigManager.ShapeType.TRIANGLE);
                 case 3 -> ConfigManager.setShapeType(ConfigManager.ShapeType.RANDOM);
             }
-            
-            ConfigManager.ShapeType newType = ConfigManager.getShapeType();
-            
-            // Atualiza tipos das formas se mudou PARA aleatório ou DE aleatório
-            if (backgroundPanel != null && 
-                (newType == ConfigManager.ShapeType.RANDOM || oldType == ConfigManager.ShapeType.RANDOM)) {
-                backgroundPanel.updateShapeTypes(); // mantém posições, só muda tipos
+
+            // Atualiza as formas existentes - SEM VERIFICAÇÃO COMPLEXA
+            if (backgroundPanel != null) {
+                backgroundPanel.updateShapeTypes();
             }
-            
-            statusBar.setText("Forma alterada.");
+
+            statusBar.setText(" Forma alterada para " + combo.getSelectedItem());
             dispose();
         });
 
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(new JLabel("Escolha a forma:"), BorderLayout.NORTH);
-
-        JPanel comboPanel = new JPanel();
-        comboPanel.add(combo);
-
-        panel.add(comboPanel, BorderLayout.CENTER);
+        panel.add(combo, BorderLayout.CENTER);
         panel.add(ok, BorderLayout.SOUTH);
-        
+
         add(panel);
-        }
+    }
 }

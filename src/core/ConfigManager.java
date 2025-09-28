@@ -4,7 +4,7 @@ import java.awt.Color;
 
 public class ConfigManager {
     private static Color backgroundColor = Color.RED;
-    private static int animationSpeed = 100; // em ms
+    private static int animationSpeed = 100;
 
     public enum ShapeType {
         CIRCLE, SQUARE, TRIANGLE, RANDOM
@@ -36,9 +36,24 @@ public class ConfigManager {
         animationSpeed = speed;
     }
 
+    public enum Direction {
+        DOWN, DIAGONAL_RIGHT, DIAGONAL_LEFT
+    }
+
+    private static Direction currentDirection = Direction.DOWN;
+
+    public static void setDirection(Direction direction) {
+        currentDirection = direction;
+    }
+
+    public static Direction getDirection() {
+        return currentDirection;
+    }
+
     public static void resetDefaults() {
         backgroundColor = Color.RED;
         animationSpeed = 100;
         currentShape = ShapeType.CIRCLE;
+        currentDirection = Direction.DOWN; 
     }
 }
