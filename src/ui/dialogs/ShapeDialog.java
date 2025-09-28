@@ -8,13 +8,12 @@ import javax.swing.*;
 public class ShapeDialog extends JDialog {
     public ShapeDialog(JFrame parent, JLabel statusBar, BackgroundPanel backgroundPanel) {
         super(parent, "Configurar Forma", true);
-        setSize(300, 150);
+        setSize(350, 200);
         setLocationRelativeTo(parent);
 
         String[] options = {"Círculo", "Quadrado", "Triângulo", "Aleatório"};
         JComboBox<String> combo = new JComboBox<>(options);
 
-        // Seleciona o item atual
         switch (ConfigManager.getShapeType()) {
             case CIRCLE -> combo.setSelectedIndex(0);
             case SQUARE -> combo.setSelectedIndex(1);
@@ -31,7 +30,6 @@ public class ShapeDialog extends JDialog {
                 case 3 -> ConfigManager.setShapeType(ConfigManager.ShapeType.RANDOM);
             }
 
-            // Atualiza as formas existentes - SEM VERIFICAÇÃO COMPLEXA
             if (backgroundPanel != null) {
                 backgroundPanel.updateShapeTypes();
             }
@@ -42,7 +40,11 @@ public class ShapeDialog extends JDialog {
 
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(new JLabel("Escolha a forma:"), BorderLayout.NORTH);
-        panel.add(combo, BorderLayout.CENTER);
+        
+        JPanel comboPanel = new JPanel();
+        comboPanel.add(combo);
+        
+        panel.add(comboPanel, BorderLayout.CENTER);
         panel.add(ok, BorderLayout.SOUTH);
 
         add(panel);

@@ -6,11 +6,7 @@ import java.nio.file.*;
 import javax.swing.*;
 
 public class FileManager {
-
-    /**
-     * Abre um JFileChooser, permite selecionar um arquivo de texto
-     * e retorna o conteúdo como String.
-     */
+    // select an text archive and return the content as String 
     public static String openFile(Component parent) {
         JFileChooser fileChooser = new JFileChooser();
         int result = fileChooser.showOpenDialog(parent);
@@ -29,16 +25,10 @@ public class FileManager {
         return null;
     }
 
-    /**
-     * Apenas lê o conteúdo de um arquivo a partir do caminho informado.
-     */
     public static String readFile(String path) throws IOException {
         return Files.readString(Path.of(path));
     }
 
-    /**
-     * Fecha o "arquivo": limpa o JTextArea e atualiza a barra de status.
-     */
     public static void closeFile(JTextArea textArea, JLabel statusBar) {
         textArea.setText(""); // limpa o conteúdo
         statusBar.setText("Arquivo fechado.");

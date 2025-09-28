@@ -20,8 +20,7 @@ public class FallingShape {
         y = -random.nextInt(100);
         size = 20 + random.nextInt(20);
         
-        // CORREÇÃO: Velocidade base mais perceptível
-        speed = 1 + random.nextInt(3); // Velocidade base
+        speed = 1 + random.nextInt(3); // base speed 
 
         color = new Color(
             random.nextInt(256),
@@ -49,7 +48,6 @@ public class FallingShape {
     public void update(int panelWidth, int panelHeight) {
         ConfigManager.Direction dir = ConfigManager.getDirection();
         
-        // CORREÇÃO: Aplica velocidade global + velocidade individual
         int effectiveSpeed = speed + (ConfigManager.getAnimationSpeed() / 3);
         
         switch (dir) {
@@ -80,7 +78,7 @@ public class FallingShape {
             g2d.fillPolygon(xPoints, yPoints, 3);
         }
         case RANDOM -> {
-            // Isso nunca deve acontecer, mas por segurança
+            // this should never happen, just for safety
             g2d.fillOval(x, y, size, size);
         }
     }

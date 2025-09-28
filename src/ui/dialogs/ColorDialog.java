@@ -25,10 +25,9 @@ public class ColorDialog extends JDialog {
             switch (index) {
                 case 0 -> ConfigManager.setBackgroundColor(Color.RED);
                 case 1 -> ConfigManager.setBackgroundColor(Color.BLUE);
-                case 2 -> ConfigManager.setBackgroundColor(null); // aleatório
+                case 2 -> ConfigManager.setBackgroundColor(null); // random  
             }
             statusBar.setText("Cor de fundo alterada.");
-            // Cor é aplicada imediatamente sem resetar a animação
             dispose();
         });
 

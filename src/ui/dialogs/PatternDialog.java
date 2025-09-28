@@ -8,7 +8,7 @@ import ui.BackgroundPanel;
 public class PatternDialog extends JDialog {
     public PatternDialog(JFrame parent, JLabel statusBar, BackgroundPanel backgroundPanel) {
         super(parent, "Padrão de Movimento", true);
-        setSize(300, 150);
+        setSize(350, 200);
         setLocationRelativeTo(parent);
 
         String[] options = {"Para Baixo", "Diagonal Direita", "Diagonal Esquerda"};
@@ -28,7 +28,11 @@ public class PatternDialog extends JDialog {
 
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(new JLabel("Escolha a direção:"), BorderLayout.NORTH);
-        panel.add(combo, BorderLayout.CENTER);
+        
+        JPanel comboPanel = new JPanel();
+        comboPanel.add(combo);
+
+        panel.add(comboPanel, BorderLayout.CENTER);
         panel.add(ok, BorderLayout.SOUTH);
 
         add(panel);

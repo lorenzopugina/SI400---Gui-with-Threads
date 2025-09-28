@@ -43,7 +43,6 @@ public class BackgroundPanel extends JPanel implements Runnable {
             repaint();
             
             try {
-                // CORREÇÃO: A velocidade agora controla o delay diretamente
                 int speed = ConfigManager.getAnimationSpeed();
                 int delay = 50 - (speed * 4); // 1=46ms, 5=30ms, 10=10ms
                 Thread.sleep(Math.max(10, delay));

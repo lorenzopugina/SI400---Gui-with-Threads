@@ -15,12 +15,12 @@ public class SpeedDialog extends JDialog {
     
     public SpeedDialog(JFrame parent, JLabel statusBar) {
         super(parent, "Configurar Velocidade", true);
-        setSize(350, 200);
+        setSize(450, 200);
         setLocationRelativeTo(parent);
 
         originalSpeed = ConfigManager.getAnimationSpeed();
         
-        JSlider slider = new JSlider(1, 10, originalSpeed); // Alterado para 1-10 (mais perceptível)
+        JSlider slider = new JSlider(1, 10, originalSpeed); 
         slider.setMajorTickSpacing(1);
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
@@ -52,7 +52,7 @@ public class SpeedDialog extends JDialog {
         buttonPanel.add(cancel);
 
         JPanel panel = new JPanel(new BorderLayout());
-        panel.add(new JLabel("Velocidade da animação (1=lento, 10=rápido):"), BorderLayout.NORTH);
+        panel.add(new JLabel("Velocidade da animação (1 = lento, 10 = rápido):"), BorderLayout.NORTH);
         panel.add(slider, BorderLayout.CENTER);
         panel.add(valueLabel, BorderLayout.SOUTH);
         panel.add(buttonPanel, BorderLayout.PAGE_END);

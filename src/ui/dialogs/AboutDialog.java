@@ -7,7 +7,7 @@ public class AboutDialog extends JDialog {
 
     public AboutDialog(JFrame parent) {
         super(parent, "Sobre", true);
-        setSize(400, 250);
+        setSize(400, 400);
         setLocationRelativeTo(parent);
         setResizable(false);
 
@@ -17,10 +17,11 @@ public class AboutDialog extends JDialog {
                            "<p><b>Autores:</b><br/>" +
                            "Adriano Baumgarte<br/>" +
                            "Lorenzo Pugina<br/>" +
-                           "Ana Vitória<br/>" +
-                           "Bianca Yukari<br/>" +
-                           "João Vitor<br/>" +
-                           "Maria Clara</p>" +
+                           "Ana Vitória Queiroz<br/>" +
+                           "Bianca Oshiro<br/>" +
+                           "João Vitor Anacleto<br/>" +
+                           "Maria Clara Muharem</p>" +
+                           "<p>Este projeto demonstra uma aplicação GUI em Java com animações de fundo utilizando threads.</p>" +
                            "</center></html>";
 
         JLabel info = new JLabel(aboutText, SwingConstants.CENTER);

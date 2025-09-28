@@ -11,19 +11,16 @@ public class HelpDialog extends JDialog {
         setLocationRelativeTo(parent);
         setResizable(false);
 
-        // Painel principal para o conteúdo de ajuda
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         contentPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Título
         JLabel titleLabel = new JLabel("Guia de Ajuda da Aplicação");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         contentPanel.add(titleLabel);
         contentPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        // Texto explicativo
         String textContent = "Bem-vindo(a) ao guia de ajuda da aplicação GUI com Threads.<br><br>" +
                              "Esta aplicação demonstra o uso de interfaces gráficas em Java (Swing) " +
                              "com animações de fundo executadas em threads separadas para garantir " +
@@ -49,7 +46,7 @@ public class HelpDialog extends JDialog {
                              "relevantes sobre o estado atual da aplicação, como o nome do arquivo carregado " +
                              "ou mensagens de status.<br><br>";
 
-        // Usando JEditorPane para renderizar HTML
+        // use of JEditorPane to render HTML
         JEditorPane editorPane = new JEditorPane("text/html", "<html><body style=\'font-family: Arial; font-size: 12pt;\'>" + textContent + "</body></html>");
         editorPane.setEditable(false);
         editorPane.setOpaque(false);
@@ -63,14 +60,12 @@ public class HelpDialog extends JDialog {
         contentPanel.add(scrollPane);
         contentPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        // Botões
         JButton closeButton = new JButton("Fechar");
         closeButton.addActionListener(e -> dispose());
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(closeButton);
 
-        // Adiciona os componentes ao diálogo
         add(contentPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
     }
