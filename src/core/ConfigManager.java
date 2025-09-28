@@ -4,7 +4,7 @@ import java.awt.Color;
 
 public class ConfigManager {
     private static Color backgroundColor = Color.RED;
-    private static int animationSpeed = 100;
+    private static int animationSpeed = 5;
 
     public enum ShapeType {
         CIRCLE, SQUARE, TRIANGLE, RANDOM

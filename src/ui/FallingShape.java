@@ -72,13 +72,17 @@ public class FallingShape {
         g2d.setColor(drawColor);
 
         switch (shapeType) {
-            case CIRCLE -> g2d.fillOval(x, y, size, size);
-            case SQUARE -> g2d.fillRect(x, y, size, size);
-            case TRIANGLE -> {
-                int[] xPoints = {x + size / 2, x, x + size};
-                int[] yPoints = {y, y + size, y + size};
-                g2d.fillPolygon(xPoints, yPoints, 3);
-            }
+        case CIRCLE -> g2d.fillOval(x, y, size, size);
+        case SQUARE -> g2d.fillRect(x, y, size, size);
+        case TRIANGLE -> {
+            int[] xPoints = {x + size / 2, x, x + size};
+            int[] yPoints = {y, y + size, y + size};
+            g2d.fillPolygon(xPoints, yPoints, 3);
         }
+        case RANDOM -> {
+            // Isso nunca deve acontecer, mas por segurança
+            g2d.fillOval(x, y, size, size);
+        }
+    }
     }
 }

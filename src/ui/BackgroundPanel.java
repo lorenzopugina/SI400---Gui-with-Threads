@@ -22,7 +22,7 @@ public class BackgroundPanel extends JPanel implements Runnable {
         int width = getWidth() > 0 ? getWidth() : 800;
         int height = getHeight() > 0 ? getHeight() : 600;
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 25; i++) {
             shapes.add(new FallingShape(width, height));
         }
     }
