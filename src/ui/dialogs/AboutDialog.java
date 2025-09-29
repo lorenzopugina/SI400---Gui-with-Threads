@@ -17,10 +17,10 @@ public class AboutDialog extends JDialog {
                            "<p><b>Grupo 07</b></p>" +
                            "<p><b>Autores:</b><br/>" +
                            "Adriano Baumgarte<br/>" +
-                           "Lorenzo Pugina<br/>" +
                            "Ana Vitória Queiroz<br/>" +
                            "Bianca Oshiro<br/>" +
                            "João Vitor Anacleto<br/>" +
+                           "Lorenzo Pugina<br/>" +
                            "Maria Clara Muharem</p>" +
                            "</center></html>";
 
