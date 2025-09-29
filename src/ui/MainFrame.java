@@ -15,6 +15,7 @@ public class MainFrame extends JFrame {
     private JTextArea textArea;
     private JLabel statusBar;
     private BackgroundPanel backgroundPanel;
+    private JDialog textDialog;
 
     public MainFrame() {
         initUI();
@@ -33,8 +34,8 @@ public class MainFrame extends JFrame {
         }
 
         textArea = new JTextArea();
-        textArea.setOpaque(false); // transparent for animation
-        textArea.setBackground(new Color(255, 255, 255, 200)); // semi-transparent background
+        textArea.setOpaque(false);
+        textArea.setBackground(new Color(255, 255, 255, 200));
 
         statusBar = new JLabel("Status: pronto");
 
@@ -64,12 +65,37 @@ public class MainFrame extends JFrame {
         openItem.addActionListener(e -> {
             String content = FileManager.openFile(this);
             if (content != null) {
-                textArea.setText(content);
+                if (textDialog != null) {
+                    textDialog.dispose();
+                }
+
+                // Cria nova janela
+                textDialog = new JDialog(this, "Conteúdo do Arquivo", false);
+                textDialog.setSize(500, 400);
+                textDialog.setLocationRelativeTo(this);
+
+                JTextArea dialogTextArea = new JTextArea(content);
+                dialogTextArea.setEditable(false);
+                dialogTextArea.setBackground(new Color(255, 255, 255));
+                dialogTextArea.setForeground(Color.BLACK);
+                dialogTextArea.setBorder(BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(Color.GRAY, 2),
+                        BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+
+                textDialog.add(new JScrollPane(dialogTextArea));
+                textDialog.setVisible(true);
+
                 statusBar.setText("Arquivo carregado com sucesso.");
             }
         });
 
-        closeItem.addActionListener(e -> FileManager.closeFile(textArea, statusBar));
+        closeItem.addActionListener(e -> {
+            if (textDialog != null) {
+                textDialog.dispose();
+                textDialog = null; 
+            }
+            statusBar.setText("Arquivo fechado.");
+        });
         exitItem.addActionListener(e -> System.exit(0));
 
         fileMenu.add(openItem);
