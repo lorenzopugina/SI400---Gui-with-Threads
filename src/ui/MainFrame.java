@@ -17,96 +17,96 @@ public class MainFrame extends JFrame {
     private BackgroundPanel backgroundPanel;
 
     public MainFrame() {
-        initUI(); // inicializa a interface
+        initUI();
     }
 
     private void initUI() {
-        setTitle("Basic GUI with Threads"); // titulo da janela
-        setSize(800, 600); // tamanho da janela
-        setDefaultCloseOperation(EXIT_ON_CLOSE); 
+        setTitle("Basic GUI with Threads");
+        setSize(800, 600);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // ícone da aplicação
+        // Application icon
         try {
             setIconImage(new ImageIcon("src/util/icon_star.png").getImage());
         } catch (Exception e) {
-            System.out.println("Ícone não encontrado, usando padrão.");
+            System.out.println("Icon not found, using default.");
         }
 
-        // área de texto
+        // Text area
         textArea = new JTextArea();
 
-        // barra de status
-        statusBar = new JLabel("Status: pronto");
+        // Status bar
+        statusBar = new JLabel("Status: ready");
 
-        // painel de fundo animado
+        // Background panel with animation
         backgroundPanel = new BackgroundPanel();
         setContentPane(backgroundPanel);
         backgroundPanel.setLayout(new BorderLayout());
         backgroundPanel.add(new JScrollPane(textArea), BorderLayout.CENTER);
         backgroundPanel.add(statusBar, BorderLayout.SOUTH);
 
-        // menus
+        // Menus
         setJMenuBar(createMenuBar());
     }
 
     private JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
 
-        // menu Arquivo
-        JMenu menuArquivo = new JMenu("Arquivo");
-        JMenuItem abrir = new JMenuItem("Abrir Arquivo");
-        JMenuItem fechar = new JMenuItem("Fechar Arquivo");
-        JMenuItem sair = new JMenuItem("Sair");
+        // File menu
+        JMenu fileMenu = new JMenu("File");
+        JMenuItem openItem = new JMenuItem("Open File");
+        JMenuItem closeItem = new JMenuItem("Close File");
+        JMenuItem exitItem = new JMenuItem("Exit");
 
-        abrir.addActionListener(e -> {
-            String content = FileManager.openFile(this); 
+        openItem.addActionListener(e -> {
+            String content = FileManager.openFile(this);
             if (content != null) {
                 textArea.setText(content);
-                statusBar.setText("Arquivo carregado com sucesso.");
+                statusBar.setText("File loaded successfully.");
             }
         });
 
-        fechar.addActionListener(e -> FileManager.closeFile(textArea, statusBar));
-        sair.addActionListener(e -> System.exit(0));
+        closeItem.addActionListener(e -> FileManager.closeFile(textArea, statusBar));
+        exitItem.addActionListener(e -> System.exit(0));
 
-        menuArquivo.add(abrir);
-        menuArquivo.add(fechar);
-        menuArquivo.addSeparator();
-        menuArquivo.add(sair);
+        fileMenu.add(openItem);
+        fileMenu.add(closeItem);
+        fileMenu.addSeparator();
+        fileMenu.add(exitItem);
 
-        // menu Configuração
-        JMenu menuConfig = new JMenu("Configuração");
-        JMenuItem padroes = new JMenuItem("Padrões");
-        JMenuItem cores = new JMenuItem("Cores");
-        JMenuItem velocidade = new JMenuItem("Velocidade");
-        JMenuItem formas = new JMenuItem("Forma");
+        // Settings menu
+        JMenu settingsMenu = new JMenu("Settings");
+        JMenuItem patternItem = new JMenuItem("Patterns");
+        JMenuItem colorItem = new JMenuItem("Colors");
+        JMenuItem speedItem = new JMenuItem("Speed");
+        JMenuItem shapeItem = new JMenuItem("Shapes");
 
-        velocidade.addActionListener(e -> new SpeedDialog(this).setVisible(true));
-        cores.addActionListener(e -> new ColorDialog(this).setVisible(true));
-        formas.addActionListener(e -> new ShapeDialog(this).setVisible(true));
-        padroes.addActionListener(e -> new PatternDialog(this).setVisible(true));
+        speedItem.addActionListener(e -> new SpeedDialog(this).setVisible(true));
+        colorItem.addActionListener(e -> new ColorDialog(this).setVisible(true));
+        shapeItem.addActionListener(e -> new ShapeDialog(this).setVisible(true));
+        patternItem.addActionListener(e -> new PatternDialog(this).setVisible(true));
 
-        menuConfig.add(padroes);
-        menuConfig.add(cores);
-        menuConfig.add(formas);
-        menuConfig.add(velocidade);
+        settingsMenu.add(patternItem);
+        settingsMenu.add(colorItem);
+        settingsMenu.add(shapeItem);
+        settingsMenu.add(speedItem);
 
-        // menu Ajuda
-        JMenu menuAjuda = new JMenu("Ajuda");
-        JMenuItem ajuda = new JMenuItem("Ajuda");
-        JMenuItem sobre = new JMenuItem("Sobre");
+        // Help menu
+        JMenu helpMenu = new JMenu("Help");
+        JMenuItem helpItem = new JMenuItem("Help");
+        JMenuItem aboutItem = new JMenuItem("About");
 
-        ajuda.addActionListener(e -> new HelpDialog(this).setVisible(true));
-        sobre.addActionListener(e -> new AboutDialog(this).setVisible(true));
+        helpItem.addActionListener(e -> new HelpDialog(this).setVisible(true));
+        aboutItem.addActionListener(e -> new AboutDialog(this).setVisible(true));
 
-        menuAjuda.add(ajuda);
-        menuAjuda.add(sobre);
+        helpMenu.add(helpItem);
+        helpMenu.add(aboutItem);
 
-        // adiciona todos no menu bar
-        menuBar.add(menuArquivo);
-        menuBar.add(menuConfig);
-        menuBar.add(menuAjuda);
+        // Add all menus to the menu bar
+        menuBar.add(fileMenu);
+        menuBar.add(settingsMenu);
+        menuBar.add(helpMenu);
 
         return menuBar;
     }
