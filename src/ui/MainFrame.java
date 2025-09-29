@@ -69,7 +69,6 @@ public class MainFrame extends JFrame {
                     textDialog.dispose();
                 }
 
-                // Cria nova janela
                 textDialog = new JDialog(this, "Conteúdo do Arquivo", false);
                 textDialog.setSize(500, 400);
                 textDialog.setLocationRelativeTo(this);

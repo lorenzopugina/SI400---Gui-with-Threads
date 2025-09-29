@@ -14,6 +14,7 @@ public class AboutDialog extends JDialog {
         String aboutText = "<html><center>" +
                            "<h1>Aplicação GUI com Threads</h1>" +
                            "<p><b>Versão:</b> 1.0</p>" +
+                           "<p><b>Grupo 07</b></p>" +
                            "<p><b>Autores:</b><br/>" +
                            "Adriano Baumgarte<br/>" +
                            "Lorenzo Pugina<br/>" +
