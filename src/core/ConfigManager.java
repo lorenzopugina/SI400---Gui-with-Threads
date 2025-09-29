@@ -3,8 +3,22 @@ package core;
 import java.awt.Color;
 
 public class ConfigManager {
-    private static Color backgroundColor = Color.BLUE;
-    private static int animationSpeed = 100; // em ms
+    private static Color backgroundColor = Color.RED;
+    private static int animationSpeed = 5;
+
+    public enum ShapeType {
+        CIRCLE, SQUARE, TRIANGLE, RANDOM
+    }
+
+    private static ShapeType currentShape = ShapeType.CIRCLE;
+
+    public static void setShapeType(ShapeType shape) {
+        currentShape = shape;
+    }
+
+    public static ShapeType getShapeType() {
+        return currentShape;
+    }
 
     public static Color getBackgroundColor() {
         return backgroundColor;
@@ -22,8 +36,24 @@ public class ConfigManager {
         animationSpeed = speed;
     }
 
+    public enum Direction {
+        DOWN, DIAGONAL_RIGHT, DIAGONAL_LEFT
+    }
+
+    private static Direction currentDirection = Direction.DOWN;
+
+    public static void setDirection(Direction direction) {
+        currentDirection = direction;
+    }
+
+    public static Direction getDirection() {
+        return currentDirection;
+    }
+
     public static void resetDefaults() {
-        backgroundColor = Color.BLUE;
+        backgroundColor = Color.RED;
         animationSpeed = 100;
+        currentShape = ShapeType.CIRCLE;
+        currentDirection = Direction.DOWN; 
     }
 }

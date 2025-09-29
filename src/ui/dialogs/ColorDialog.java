@@ -3,8 +3,6 @@ package ui.dialogs;
 import core.ConfigManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -27,7 +25,7 @@ public class ColorDialog extends JDialog {
             switch (index) {
                 case 0 -> ConfigManager.setBackgroundColor(Color.RED);
                 case 1 -> ConfigManager.setBackgroundColor(Color.BLUE);
-                case 2 -> ConfigManager.setBackgroundColor(null); // aleatório
+                case 2 -> ConfigManager.setBackgroundColor(null); // random  
             }
             statusBar.setText("Cor de fundo alterada.");
             dispose();

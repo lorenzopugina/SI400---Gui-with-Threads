@@ -6,11 +6,7 @@ import java.nio.file.*;
 import javax.swing.*;
 
 public class FileManager {
-
-    /**
-     * Abre um JFileChooser, permite selecionar um arquivo de texto
-     * e retorna o conteúdo como String.
-     */
+    // Opens a JFileChooser, lets the user select a text file and returns the content as String 
     public static String openFile(Component parent) {
         JFileChooser fileChooser = new JFileChooser();
         int result = fileChooser.showOpenDialog(parent);
@@ -21,26 +17,22 @@ public class FileManager {
                 return Files.readString(file.toPath());
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(parent,
-                        "Erro ao abrir arquivo: " + e.getMessage(),
-                        "Erro",
+                        "Error opening file: " + e.getMessage(),
+                        "Error",
                         JOptionPane.ERROR_MESSAGE);
             }
         }
         return null;
     }
 
-    /**
-     * Apenas lê o conteúdo de um arquivo a partir do caminho informado.
-     */
+    // Reads the content of a file from the given path
     public static String readFile(String path) throws IOException {
         return Files.readString(Path.of(path));
     }
 
-    /**
-     * Fecha o "arquivo": limpa o JTextArea e atualiza a barra de status.
-     */
+    // "Closes" the file: clears the JTextArea and updates the status bar
     public static void closeFile(JTextArea textArea, JLabel statusBar) {
-        textArea.setText(""); // limpa o conteúdo
-        statusBar.setText("Arquivo fechado.");
+        textArea.setText(""); // clears content
+        statusBar.setText("File closed.");
     }
 }

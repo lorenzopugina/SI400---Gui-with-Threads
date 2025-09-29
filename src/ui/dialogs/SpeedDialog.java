@@ -2,38 +2,61 @@ package ui.dialogs;
 
 import core.ConfigManager;
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JSlider;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeListener;
 
 public class SpeedDialog extends JDialog {
+    private int originalSpeed;
+    
     public SpeedDialog(JFrame parent, JLabel statusBar) {
         super(parent, "Configurar Velocidade", true);
-        setSize(300, 200);
+        setSize(450, 200);
         setLocationRelativeTo(parent);
 
-        JSlider slider = new JSlider(10, 100, ConfigManager.getAnimationSpeed());
-        slider.setMajorTickSpacing(10);
+        originalSpeed = ConfigManager.getAnimationSpeed();
+        
+        JSlider slider = new JSlider(1, 10, originalSpeed); 
+        slider.setMajorTickSpacing(1);
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
 
+        JLabel valueLabel = new JLabel("Velocidade: " + slider.getValue(), JLabel.CENTER);
+
+        ChangeListener speedChangeListener = e -> {
+            int newSpeed = slider.getValue();
+            ConfigManager.setAnimationSpeed(newSpeed);
+            valueLabel.setText("Velocidade: " + newSpeed);
+        };
+        slider.addChangeListener(speedChangeListener);
+
         JButton ok = new JButton("OK");
         ok.addActionListener(e -> {
-            ConfigManager.setAnimationSpeed(slider.getValue());
-            statusBar.setText("Velocidade alterada para " + slider.getValue() + " ms.");
+            statusBar.setText(" Velocidade alterada para " + slider.getValue());
             dispose();
         });
 
-        JPanel panel = new JPanel (new BorderLayout());
-        panel.add(new JLabel("Velocidade da animação:"), BorderLayout.NORTH);
+        JButton cancel = new JButton("Cancelar");
+        cancel.addActionListener(e -> {
+            ConfigManager.setAnimationSpeed(originalSpeed);
+            statusBar.setText(" Velocidade mantida");
+            dispose();
+        });
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(ok);
+        buttonPanel.add(cancel);
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(new JLabel("Velocidade da animação (1 = lento, 10 = rápido):"), BorderLayout.NORTH);
         panel.add(slider, BorderLayout.CENTER);
-        panel.add(ok, BorderLayout.SOUTH);
+        panel.add(valueLabel, BorderLayout.SOUTH);
+        panel.add(buttonPanel, BorderLayout.PAGE_END);
+        
         add(panel);
     }
 }
-

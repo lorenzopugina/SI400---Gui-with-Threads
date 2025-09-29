@@ -1,55 +1,39 @@
 package ui;
 
-import javax.swing.*;
+import core.ConfigManager;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import core.ConfigManager;
+import javax.swing.*;
 
 public class BackgroundPanel extends JPanel implements Runnable {
-
-    private static class Shape {
-        int x, y, size;
-        int dx, dy;   // velocidade em X e Y
-        Color color;
-
-        public Shape(int x, int y, int size, int dx, int dy, Color color) {
-            this.x = x;
-            this.y = y;
-            this.size = size;
-            this.dx = dx;
-            this.dy = dy;
-            this.color = color;
-        }
-    }
-
-    private Thread thread;
+    private Thread animationThread;
     private boolean running = true;
-    private List<Shape> shapes;
-    private Random rand = new Random();
+    private final List<FallingShape> shapes = new ArrayList<>();
 
     public BackgroundPanel() {
-        shapes = new ArrayList<>();
+        setBackground(Color.WHITE);
         initShapes();
         startAnimation();
     }
 
     private void initShapes() {
-        for (int i = 0; i < 20; i++) { // 20 formas
-            int x = rand.nextInt(800);
-            int y = rand.nextInt(600);
-            int size = 20 + rand.nextInt(30);
-            int dx = 1 + rand.nextInt(3); // velocidade em X
-            int dy = 2 + rand.nextInt(4); // velocidade em Y
-            Color color = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
-            shapes.add(new Shape(x, y, size, dx, dy, color));
+        shapes.clear();
+        int width = getWidth() > 0 ? getWidth() : 800;
+        int height = getHeight() > 0 ? getHeight() : 600;
+
+        for (int i = 0; i < 25; i++) {
+            shapes.add(new FallingShape(width, height));
         }
     }
 
     private void startAnimation() {
-        thread = new Thread(this);
-        thread.start();
+        if (animationThread != null) return;
+        
+        running = true;
+        animationThread = new Thread(this);
+        animationThread.setDaemon(true);
+        animationThread.start();
     }
 
     @Override
@@ -57,10 +41,13 @@ public class BackgroundPanel extends JPanel implements Runnable {
         while (running) {
             updateShapes();
             repaint();
+            
             try {
-                Thread.sleep(ConfigManager.getAnimationSpeed());
+                int speed = ConfigManager.getAnimationSpeed();
+                int delay = 50 - (speed * 4); // 1=46ms, 5=30ms, 10=10ms
+                Thread.sleep(Math.max(10, delay));
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                break;
             }
         }
     }
@@ -68,48 +55,43 @@ public class BackgroundPanel extends JPanel implements Runnable {
     private void updateShapes() {
         int width = getWidth();
         int height = getHeight();
+        if (width <= 0 || height <= 0) return;
 
-        for (Shape s : shapes) {
-            switch (ConfigManager.getDirection()) {
-                case DOWN -> { s.y += s.dy; }
-                case DIAGONAL_RIGHT -> { s.x += s.dx; s.y += s.dy; }
-                case DIAGONAL_LEFT -> { s.x -= s.dx; s.y += s.dy; }
-            }
-
-            // Reinicia se sair da tela
-            if (s.y > height || s.x > width || s.x < -s.size) {
-                s.x = rand.nextInt(width);
-                s.y = -s.size;
-            }
-        }
-    }
-    private void drawShape(Graphics g, Shape s) {
-        g.setColor(ConfigManager.getBackgroundColor() != null 
-                ? ConfigManager.getBackgroundColor() 
-                : s.color);
-
-        ConfigManager.ShapeType type = ConfigManager.getShapeType();
-        if (type == ConfigManager.ShapeType.RANDOM) {
-            type = ConfigManager.ShapeType.values()[rand.nextInt(3)]; // pega aleatório
-        }
-
-        switch (type) {
-            case CIRCLE -> g.fillOval(s.x, s.y, s.size, s.size);
-            case SQUARE -> g.fillRect(s.x, s.y, s.size, s.size);
-            case TRIANGLE -> {
-                int[] xPoints = {s.x, s.x + s.size/2, s.x - s.size/2};
-                int[] yPoints = {s.y, s.y + s.size, s.y + s.size};
-                g.fillPolygon(xPoints, yPoints, 3);
-            }
+        for (FallingShape shape : shapes) {
+            shape.update(width, height);
         }
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for (Shape s : shapes) {
-            drawShape(g, s);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        for (FallingShape shape : shapes) {
+            shape.draw(g2d);
         }
     }
 
+    public void updateShapeTypes() {
+        int width = getWidth() > 0 ? getWidth() : 800;
+        int height = getHeight() > 0 ? getHeight() : 600;
+        
+        for (FallingShape shape : shapes) {
+            shape.updateShapeType(ConfigManager.getShapeType(), width, height);
+        }
+        repaint();
+    }
+
+    public void refreshAnimation() {
+        initShapes();
+    }
+
+    public void stopAnimation() {
+        running = false;
+        if (animationThread != null) {
+            animationThread.interrupt();
+            animationThread = null;
+        }
+    }
 }

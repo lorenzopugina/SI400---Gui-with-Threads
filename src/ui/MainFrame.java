@@ -35,6 +35,8 @@ public class MainFrame extends JFrame {
 
         // Text area
         textArea = new JTextArea();
+        textArea.setOpaque(false); // transparent for animation
+        textArea.setBackground(new Color(255, 255, 255, 200)); // semi-transparent background
 
         // Status bar
         statusBar = new JLabel("Status: ready");
@@ -43,7 +45,13 @@ public class MainFrame extends JFrame {
         backgroundPanel = new BackgroundPanel();
         setContentPane(backgroundPanel);
         backgroundPanel.setLayout(new BorderLayout());
-        backgroundPanel.add(new JScrollPane(textArea), BorderLayout.CENTER);
+
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setOpaque(false);
+        scrollPane.getViewport().setOpaque(false);
+        scrollPane.setBorder(null);
+
+        backgroundPanel.add(scrollPane, BorderLayout.CENTER);
         backgroundPanel.add(statusBar, BorderLayout.SOUTH);
 
         // Menus
@@ -103,7 +111,7 @@ public class MainFrame extends JFrame {
         helpMenu.add(helpItem);
         helpMenu.add(aboutItem);
 
-        // Add all menus to the menu bar
+        // Add menus to menu bar
         menuBar.add(fileMenu);
         menuBar.add(settingsMenu);
         menuBar.add(helpMenu);
